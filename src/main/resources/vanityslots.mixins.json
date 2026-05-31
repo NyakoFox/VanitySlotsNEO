@@ -1,0 +1,19 @@
+{
+	"required": true,
+	"package": "gay.nyako.vanityslots.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"LivingEntityMixin",
+		"PiglinAiMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	},
+	"client": [
+		"HumanoidMobRendererMixin",
+		"LivingEntityRendererMixin"
+	]
+}

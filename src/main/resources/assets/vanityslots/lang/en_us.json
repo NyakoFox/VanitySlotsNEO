@@ -1,0 +1,14 @@
+{
+  "trinkets.slot.head.vanity": "Head Vanity",
+  "trinkets.slot.chest.vanity": "Chest Vanity",
+  "trinkets.slot.legs.vanity": "Legs Vanity",
+  "trinkets.slot.feet.vanity": "Feet Vanity",
+  "config.screen.vanityslots": "VanitySlots Config",
+  "config.vanityslots.option.mobsReact": "Mobs React To Vanity",
+  "config.vanityslots.option.mobsReact.comment.0": "Whether or not mobs will react to your visible armor (including vanity).",
+
+  "item.vanityslots.familiar_wig": "Familiar Wig",
+  "item.vanityslots.familiar_shirt": "Familiar Shirt",
+  "item.vanityslots.familiar_pants": "Familiar Pants",
+  "item.vanityslots.familiar_sneakers": "Familiar Sneakers"
+}

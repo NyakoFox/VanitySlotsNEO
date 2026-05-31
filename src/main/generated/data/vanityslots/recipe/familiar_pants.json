@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "L": "minecraft:leather_leggings",
+    "g": "minecraft:glowstone_dust"
+  },
+  "pattern": [
+    "ggg",
+    "gLg",
+    "ggg"
+  ],
+  "result": {
+    "count": 1,
+    "id": "vanityslots:familiar_pants"
+  }
+}
