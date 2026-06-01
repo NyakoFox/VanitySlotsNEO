@@ -124,14 +124,14 @@ publishing {
 import com.modrinth.minotaur.dependencies.ModDependency
 
 modrinth {
-	token = env.MODRINTH_TOKEN.value
+	token = env.MODRINTH_TOKEN.orNull()
 	projectId = 'YTVu0oG8'
 	versionNumber = project.mod_version
 	versionName = 'VanitySlots ' + project.mod_version
 	uploadFile = jar
 	gameVersions = List<String>.of(project.functional_versions.split(","))
 	loaders = ['fabric', 'quilt']
-	changelog = file("changelog.md").text
+	changelog = file("CHANGELOG.md").text
 	dependencies = [
 			new ModDependency('P7dR8mSH', 'required'), // Fabric API
 			new ModDependency('3WjjSM5O', 'required'), // Configuration
@@ -141,11 +141,11 @@ modrinth {
 }
 
 curseforge {
-	apiKey = env.CURSEFORGE_TOKEN.value
+	apiKey = env.CURSEFORGE_TOKEN.orNull()
 	project {
 		id = '570109'
 		releaseType = 'release'
-		changelog = file("changelog.md").text
+		changelog = file("CHANGELOG.md").text
 		changelogType = 'markdown'
 
 		for (version in functional_versions.split(",")) {
