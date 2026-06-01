@@ -10,5 +10,7 @@
   "item.vanityslots.familiar_wig": "Familiar Wig",
   "item.vanityslots.familiar_shirt": "Familiar Shirt",
   "item.vanityslots.familiar_pants": "Familiar Pants",
-  "item.vanityslots.familiar_sneakers": "Familiar Sneakers"
+  "item.vanityslots.familiar_sneakers": "Familiar Sneakers",
+
+  "tag.item.vanityslots.vanity_blacklist": "Vanity Armor Blacklist"
 }

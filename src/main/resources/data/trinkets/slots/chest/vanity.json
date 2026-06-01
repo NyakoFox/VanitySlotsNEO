@@ -1,5 +1,5 @@
 {
-  "icon": "vanityslots:gui/empty_trinket_slot_chest_vanity",
+  "icon": "vanityslots:container/slots/chest_vanity",
   "validator_predicates": ["vanityslots:chest"],
   "quick_move_predicates": ["vanityslots:quick_chest"],
   "tooltip_predicates": ["vanityslots:none"]

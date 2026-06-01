@@ -1,6 +1,6 @@
 package gay.nyako.vanityslots;
 
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -38,7 +38,7 @@ public class VanitySlotsItems {
 
     public static void register() {
 
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT)
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT)
                 .register((itemGroup) -> {
                     itemGroup.accept(FAMILIAR_WIG);
                     itemGroup.accept(FAMILIAR_SHIRT);

@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {
     @WrapOperation(
-            method = "method_64620(Lnet/minecraft/world/entity/LivingEntity;)Z",
+            method = "net/minecraft/world/entity/LivingEntity.lambda$static$0(Lnet/minecraft/world/entity/LivingEntity;)Z",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;getItemBySlot(Lnet/minecraft/world/entity/EquipmentSlot;)Lnet/minecraft/world/item/ItemStack;")
     )
     private static ItemStack vanityslots$getVisibleDisguiseItem(Player instance, EquipmentSlot equipmentSlot, Operation<ItemStack> original) {

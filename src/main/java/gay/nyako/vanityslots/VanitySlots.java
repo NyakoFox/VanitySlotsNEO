@@ -1,14 +1,13 @@
 package gay.nyako.vanityslots;
 
-import dev.emi.trinkets.api.SlotType;
-import dev.emi.trinkets.api.TrinketsApi;
 import dev.toma.configuration.Configuration;
+import eu.pb4.trinkets.api.*;
 import net.fabricmc.api.ModInitializer;
 
-import net.fabricmc.fabric.api.util.TriState;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -39,14 +38,14 @@ public class VanitySlots implements ModInitializer {
 		VanitySlotsItems.register();
 	}
 
-	private static boolean matches(EquipmentSlot slot, String group)
+	private static boolean matches(EquipmentSlot slot, String slotID)
 	{
 		return switch (slot)
 		{
-			case FEET  -> group.equals("feet");
-			case LEGS  -> group.equals("legs");
-			case CHEST -> group.equals("chest");
-			case HEAD  -> group.equals("head");
+			case FEET  -> slotID.equals("feet/vanity");
+			case LEGS  -> slotID.equals("legs/vanity");
+			case CHEST -> slotID.equals("chest/vanity");
+			case HEAD  -> slotID.equals("head/vanity");
 			default    -> false;
 		};
 	}
@@ -75,55 +74,57 @@ public class VanitySlots implements ModInitializer {
 		if (!(entity instanceof Player))
 			return ItemStack.EMPTY;
 
-		return TrinketsApi.getTrinketComponent(entity)
-				.map(component -> {
-					for (var equipped : component.getAllEquipped())
-					{
-						SlotType slotType = equipped.getA().inventory().getSlotType();
-						ItemStack stack = equipped.getB();
+		TrinketAttachment attachment = TrinketsApi.getAttachment(entity);
+		if (attachment == null)
+		{
+			return ItemStack.EMPTY;
+		}
 
-						if (stack.isEmpty())
-							continue;
+		for (Tuple<TrinketSlotAccess, ItemStack> value : attachment.getAllEquipped())
+		{
+			TrinketSlotAccess access = value.getA();
+			SlotType slotType = access.slotType();
+			ItemStack stack = value.getB();
 
-						if (!slotType.getName().equals("vanity"))
-							continue;
+			if (stack.isEmpty())
+				continue;
 
-						if (matches(slot, slotType.getGroup()))
-							return stack;
-					}
-					return ItemStack.EMPTY;
-				})
-				.orElse(ItemStack.EMPTY);
+			if (matches(slot, slotType.getId()))
+				return stack;
+		}
+
+		return ItemStack.EMPTY;
 	}
 
 	public void registerPredicate(String identifier, EquipmentSlot slot) {
 		TrinketsApi.registerTrinketPredicate(Identifier.fromNamespaceAndPath(MOD_ID, identifier), (stack, ref, entity) -> {
-			if (entity.isEquippableInSlot(stack, slot)) {
-				if (EnchantmentHelper.has(stack, EnchantmentEffectComponents.PREVENT_ARMOR_CHANGE))
-				{
-					// Don't allow curse of binding in our vanity slots...
-					return TriState.FALSE;
-				}
-
-				if (stack.is(VANITY_BLACKLIST)) {
-					// If the item is in the blacklist, don't allow it in our vanity slots.
-					return TriState.FALSE;
-				}
-
-				return TriState.TRUE;
+			if (!entity.isEquippableInSlot(stack, slot)) {
+				return false;
 			}
-			return TriState.DEFAULT;
+
+			if (EnchantmentHelper.has(stack, EnchantmentEffectComponents.PREVENT_ARMOR_CHANGE))
+			{
+				// Don't allow curse of binding in our vanity slots...
+				return false;
+			}
+
+			if (stack.is(VANITY_BLACKLIST)) {
+				// If the item is in the blacklist, don't allow it in our vanity slots.
+				return false;
+			}
+
+			return true;
 		});
 
 		TrinketsApi.registerTrinketPredicate(Identifier.fromNamespaceAndPath(MOD_ID, "quick_" + identifier), (stack, ref, entity) -> {
 			// If the vanilla slot is empty...
 			if (entity.getItemBySlot(slot).isEmpty()) {
 				// We don't want to shift click into our custom one.
-				return TriState.FALSE;
+				return false;
 			}
 			// There's something in the vanilla slot, so shift
 			// clicking into the vanity slot should be allowed.
-			return TriState.TRUE;
+			return true;
 		});
 	}
 }
