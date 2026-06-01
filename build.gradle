@@ -2,8 +2,8 @@ plugins {
 	id 'net.fabricmc.fabric-loom' version "${loom_version}"
 	id 'maven-publish'
 	id "co.uzzu.dotenv.gradle" version "2.0.0"
-	id "com.matthewprenger.cursegradle" version "1.4.0"
-	id "com.modrinth.minotaur" version "2.+"
+
+	id "me.modmuss50.mod-publish-plugin" version "2.0.0-beta.2"
 }
 
 version = project.mod_version
@@ -121,57 +121,36 @@ publishing {
 	}
 }
 
-import com.modrinth.minotaur.dependencies.ModDependency
+publishMods {
+	file = jar.archiveFile
 
-modrinth {
-	token = env.MODRINTH_TOKEN.orNull()
-	projectId = 'YTVu0oG8'
-	versionNumber = project.mod_version
-	versionName = 'VanitySlots ' + project.mod_version
-	uploadFile = jar
-	gameVersions = List<String>.of(project.functional_versions.split(","))
-	loaders = ['fabric', 'quilt']
+	type = STABLE
+
+	version = project.mod_version
+	displayName = 'VanitySlots ' + project.mod_version
 	changelog = file("CHANGELOG.md").text
-	dependencies = [
-			new ModDependency('P7dR8mSH', 'required'), // Fabric API
-			new ModDependency('3WjjSM5O', 'required'), // Configuration
-			new ModDependency('XaT8sLP6', 'required'), // Trinkets Updated
-			new ModDependency('mOgUt4GM', 'optional') // Mod Menu
-	]
-}
 
-curseforge {
-	apiKey = env.CURSEFORGE_TOKEN.orNull()
-	project {
-		id = '570109'
-		releaseType = 'release'
-		changelog = file("CHANGELOG.md").text
-		changelogType = 'markdown'
+	modLoaders.add("fabric")
 
-		for (version in functional_versions.split(",")) {
-			addGameVersion(version)
-		}
-
-		addGameVersion "Java 25"
-		addGameVersion "Fabric"
-		addGameVersion "Quilt"
-
-		relations {
-			requiredDependency("fabric-api")
-			requiredDependency("configuration")
-			requiredDependency("trinkets-updated")
-			optionalDependency("modmenu")
-		}
-
-		mainArtifact(jar.archiveFile) {
-			displayName = 'VanitySlots ' + project.mod_version
-		}
-
-		afterEvaluate {
-			uploadTask.dependsOn jar
-		}
+	curseforge {
+		projectId = "570109"
+		projectSlug = "vanityslots"
+		accessToken = env.CURSEFORGE_TOKEN.orNull()
+		minecraftVersions.addAll(project.curseforge_versions.split(","))
+		client = true
+		server = true
+		requires("fabric-api")
+		requires("configuration")
+		requires("trinkets-updated")
+		requires("modmenu")
 	}
-	options {
-		forgeGradleIntegration = false
+	modrinth {
+		projectId = "YTVu0oG8"
+		accessToken = env.MODRINTH_TOKEN.orNull()
+		minecraftVersionList(project.modrinth_versions)
+		requires("P7dR8mSH") // Fabric API
+		requires("3WjjSM5O") // Configuration
+		requires("XaT8sLP6") // Trinkets Updated
+		optional("mOgUt4GM") // Mod Menu
 	}
 }
