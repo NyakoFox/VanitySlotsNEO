@@ -19,10 +19,6 @@ repositories {
 		url = "https://maven.terraformersmc.com/"
 	}
 	maven {
-		name = "Ladysnake Libs"
-		url = 'https://maven.ladysnake.org/releases'
-	}
-	maven {
 		name = "Nucleoid"
 		url = 'https://maven.nucleoid.xyz/releases'
 		metadataSources {
@@ -30,12 +26,12 @@ repositories {
 		}
 	}
 	maven {
-		name 'Configuration'
-		url 'https://repo.repsy.io/mvn/toma/public/'
+		name = 'Configuration'
+		url = 'https://repo.repsy.io/mvn/toma/public/'
 	}
 	maven {
-		name 'Configuration (alternative/backup)'
-		url 'https://api.repsy.io/mvn/toma/public/'
+		name = 'Configuration (alternative/backup)'
+		url = 'https://api.repsy.io/mvn/toma/public/'
 	}
 }
 
@@ -52,10 +48,6 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
-
-	// Cardinal Components
-	api include("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}")
-	api include("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}")
 
 	// Trinkets API
 	implementation "eu.pb4:trinkets:${project.trinkets_version}"

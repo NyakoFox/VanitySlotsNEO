@@ -1,1 +1,1 @@
-This update rewrites the mod a second time, dropping support for NeoForge and using Trinkets again.
+This update adds support for Minecraft 26.2.
