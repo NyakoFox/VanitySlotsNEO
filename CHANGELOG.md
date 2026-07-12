@@ -1,1 +1,1 @@
-This update adds support for Minecraft 26.2.
+This update fixes a crash with a newer version of Trinkets.

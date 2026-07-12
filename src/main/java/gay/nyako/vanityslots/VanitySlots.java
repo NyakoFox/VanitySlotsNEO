@@ -7,7 +7,6 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -80,11 +79,10 @@ public class VanitySlots implements ModInitializer {
 			return ItemStack.EMPTY;
 		}
 
-		for (Tuple<TrinketSlotAccess, ItemStack> value : attachment.getAllEquipped())
+		for (TrinketSlotAccess access : attachment.allEquipped(false))
 		{
-			TrinketSlotAccess access = value.getA();
 			SlotType slotType = access.slotType();
-			ItemStack stack = value.getB();
+			ItemStack stack = access.get();
 
 			if (stack.isEmpty())
 				continue;
