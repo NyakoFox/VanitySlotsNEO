@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {
     @WrapOperation(
-            method = "net/minecraft/world/entity/LivingEntity.lambda$static$0(Lnet/minecraft/world/entity/LivingEntity;)Z",
+            method = "lambda$static$0(Lnet/minecraft/world/entity/LivingEntity;)Z",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;getItemBySlot(Lnet/minecraft/world/entity/EquipmentSlot;)Lnet/minecraft/world/item/ItemStack;")
     )
     private static ItemStack vanityslots$getVisibleDisguiseItem(Player instance, EquipmentSlot equipmentSlot, Operation<ItemStack> original) {
@@ -26,15 +26,15 @@ public class LivingEntityMixin {
     }
 
     @WrapOperation(
-            method = "getVisibilityPercent(Lnet/minecraft/world/entity/Entity;)D",
+            method = "getVisibilityPercent(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/Entity;)D",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;getItemBySlot(Lnet/minecraft/world/entity/EquipmentSlot;)Lnet/minecraft/world/item/ItemStack;")
     )
-    private ItemStack vanityslots$getVisibleMobHead(LivingEntity instance, EquipmentSlot equipmentSlot, Operation<ItemStack> original) {
-        if (VanitySlots.hasMobVisibleVanityStack(instance, equipmentSlot))
+    private ItemStack vanityslots$getVisibleMobHead(LivingEntity instance, EquipmentSlot slot, Operation<ItemStack> original) {
+        if (VanitySlots.hasMobVisibleVanityStack(instance, slot))
         {
-            return VanitySlots.getVanityStack(instance, equipmentSlot);
+            return VanitySlots.getVanityStack(instance, slot);
         }
-        return original.call(instance, equipmentSlot);
+        return original.call(instance, slot);
     }
 
     @WrapOperation(

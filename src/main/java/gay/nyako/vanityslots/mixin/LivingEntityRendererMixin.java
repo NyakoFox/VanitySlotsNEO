@@ -27,13 +27,13 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, S extend
 			method = "extractRenderState(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;F)V",
 			at = @At(value = "INVOKE", target = "getItemBySlot(Lnet/minecraft/world/entity/EquipmentSlot;)Lnet/minecraft/world/item/ItemStack;")
 	)
-	private ItemStack vanityslots$replaceHeadItem(LivingEntity instance, EquipmentSlot equipmentSlot, Operation<ItemStack> original) {
-		ItemStack stack = VanitySlots.getVanityStack(instance, equipmentSlot);
+	private ItemStack vanityslots$replaceHeadItem(LivingEntity instance, EquipmentSlot slot, Operation<ItemStack> original) {
+		ItemStack stack = VanitySlots.getVanityStack(instance, slot);
 		if (!stack.isEmpty())
 		{
 			return stack;
 		}
 
-		return original.call(instance, equipmentSlot);
+		return original.call(instance, slot);
 	}
 }

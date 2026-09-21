@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "vanityslots:familiar_wig"
+        "recipes": "vanityslots:familiar_wig"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

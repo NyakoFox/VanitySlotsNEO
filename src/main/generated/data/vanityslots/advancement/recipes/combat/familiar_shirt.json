@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "vanityslots:familiar_shirt"
+        "recipes": "vanityslots:familiar_shirt"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

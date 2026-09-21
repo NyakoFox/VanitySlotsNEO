@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "vanityslots:familiar_sneakers"
+        "recipes": "vanityslots:familiar_sneakers"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
